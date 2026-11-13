@@ -23,6 +23,7 @@
       --c-isfest: #d97706;    /* Amber Emas */
       --c-perprod: #7c3aed;   /* Ungu Violet */
       --c-social: #e11d48;    /* Rose Pink */
+      --c-sinight: #06b6d4;   /* Cyan Neon untuk SI NIGHT */
       --c-divaka: #059669;    /* Hijau Emerald */
       --c-hukesma: #2563eb;   /* Biru Hukesma */
       --c-nonaka: #ea580c;    /* Oranye Kemerahan */
@@ -367,6 +368,7 @@
     .day-cell.type-isfest  { background: #fef3c7; color: #b45309 !important; font-weight: 700; }
     .day-cell.type-perprod { background: #ede9fe; color: #6d28d9 !important; font-weight: 700; }
     .day-cell.type-social  { background: #ffe4e6; color: #be123c !important; font-weight: 700; }
+    .day-cell.type-sinight { background: #cffafe; color: #0e7490 !important; font-weight: 700; }
     .day-cell.type-divaka  { background: #d1fae5; color: #047857 !important; font-weight: 700; }
     .day-cell.type-hukesma { background: #dbeafe; color: #1d4ed8 !important; font-weight: 700; }
     .day-cell.type-nonaka  { background: #ffedd5; color: #c2410c !important; font-weight: 700; }
@@ -471,6 +473,7 @@
     .tag-isfest   { background: #fef3c7; color: #92400e; --node-color: #d97706; }
     .tag-perprod  { background: #ede9fe; color: #5b21b6; --node-color: #7c3aed; }
     .tag-social   { background: #ffe4e6; color: #9f1239; --node-color: #e11d48; }
+    .tag-sinight  { background: #cffafe; color: #0e7490; --node-color: #06b6d4; }
     .tag-divaka   { background: #d1fae5; color: #065f46; --node-color: #059669; }
     .tag-hukesma  { background: #dbeafe; color: #1e40af; --node-color: #2563eb; }
     .tag-nonaka   { background: #ffedd5; color: #c2410c; --node-color: #ea580c; }
@@ -689,6 +692,7 @@
       <span class="pill"><span class="pill-dot" style="background: var(--c-isfest);"></span><strong>ISFEST 2027</strong></span>
       <span class="pill"><span class="pill-dot" style="background: var(--c-perprod);"></span><strong>Perkenalan Prodi</strong></span>
       <span class="pill"><span class="pill-dot" style="background: var(--c-social);"></span><strong>Social IS ME</strong></span>
+      <span class="pill"><span class="pill-dot" style="background: var(--c-sinight);"></span><strong>SI NIGHT</strong></span>
     </div>
   </div>
 
@@ -738,6 +742,7 @@
     ],
     3: [
       { date: "1–3 Mar", tag: "isfest", text: "ISFEST: Interview Panitia", cat: "proker" },
+      { date: "1–16 Mar", tag: "sinight", text: "SI NIGHT: Open Rekrutmen Panitia", cat: "proker" },
       { date: "3, 17, 31 Mar", tag: "hukesma", text: "Hukesma: Rabu Lagu (3, 17, 31 Maret)", cat: "divisi" },
       { date: "5 Mar", tag: "isfest", text: "ISFEST: Announcement Kelulusan Panitia", cat: "proker" },
       { date: "6 Mar", tag: "nonaka", text: "Siberian Week: Futsal ⚽", cat: "divisi" },
@@ -746,9 +751,11 @@
       { date: "16, 23, 30 Mar", tag: "divaka", text: "Divisi Akademik: Bimbel HIMSI (16, 23, 30 Maret)", cat: "divisi" },
       { date: "17 Mar", tag: "isfest", text: "ISFEST: Pleno 1", cat: "proker" },
       { date: "20 Mar", tag: "nonaka", text: "Siberian Week: Basket 🏀", cat: "divisi" },
+      { date: "22–23 Mar", tag: "sinight", text: "SI NIGHT: Interview Panitia", cat: "proker" },
       { date: "25–26 Mar", tag: "holiday", text: "Wafat Yesus Kristus & Cuti Bersama", cat: "holiday" },
       { date: "28 Mar", tag: "holiday", text: "Kebangkitan Yesus Kristus (Paskah)", cat: "holiday" },
-      { date: "30 Mar", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode Maret (Selasa agar tdk bentrok)", cat: "divisi" }
+      { date: "30 Mar", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode Maret (Selasa agar tdk bentrok)", cat: "divisi" },
+      { date: "31 Mar", tag: "sinight", text: "SI NIGHT: Pleno 1", cat: "proker" }
     ],
     4: [
       { date: "3 Apr", tag: "nonaka", text: "Siberian Week: Badminton 🏸", cat: "divisi" },
@@ -764,6 +771,7 @@
       { date: "4–5 Mei", tag: "perprod", text: "Perkenalan Prodi: Interview Panitia", cat: "proker" },
       { date: "6 Mei", tag: "holiday", text: "Kenaikan Yesus Kristus", cat: "holiday" },
       { date: "8 Mei", tag: "nonaka", text: "Siberian Week: Futsal ⚽", cat: "divisi" },
+      { date: "10 Mei", tag: "sinight", text: "SI NIGHT: Pleno 2", cat: "proker" },
       { date: "11 Mei", tag: "isfest", text: "ISFEST: Bonding Panitia", cat: "proker" },
       { date: "12, 26 Mei", tag: "hukesma", text: "Hukesma: Rabu Lagu (12 & 26 Mei)", cat: "divisi" },
       { date: "13 Mei", tag: "perprod", text: "Perkenalan Prodi: Pleno 1", cat: "proker" },
@@ -781,35 +789,41 @@
       { date: "21 Jun", tag: "isfest", text: "ISFEST: Buka Regis Lomba Akademik (UI/UX, Data)", cat: "proker" }
     ],
     7: [
-      { date: "3, 10, 24, 31 Jul", tag: "perprod", text: "Perkenalan Prodi: Pembekalan PIC (3, 10, 24, 31 Juli)", cat: "proker" },
+      { date: "3, 10, 17, 24 Jul", tag: "perprod", text: "Perkenalan Prodi: Pembekalan PIC (Setiap Sabtu s.d. 24 Juli)", cat: "proker" },
       { date: "14 Jul", tag: "isfest", text: "ISFEST: Buka Regis Lomba Non-Aka (MLBB, Valo)", cat: "proker" },
-      { date: "17 Jul", tag: "perprod", text: "Perkenalan Prodi: Forum Foto PIC", cat: "proker" },
+      { date: "15 Jul", tag: "perprod", text: "Perkenalan Prodi: Forum Foto PIC", cat: "proker" },
       { date: "28 Jul", tag: "perprod", text: "Perkenalan Prodi: Rapat Acara x PIC x Perkap x Keamanan", cat: "proker" },
+      { date: "30 Jul", tag: "perprod", text: "Perkenalan Prodi: Pleno 2", cat: "proker" },
       { date: "Sepanjang Bulan", tag: "isfest", text: "ISFEST: Pendaftaran Lomba Akademik & Non-Aka Berjalan", cat: "proker" }
     ],
     8: [
-      { date: "4 Agt", tag: "perprod", text: "Perkenalan Prodi: Pleno 2", cat: "proker" },
-      { date: "10–11 Agt", tag: "perprod", text: "Perkenalan Prodi: Simulasi", cat: "proker" },
+      { date: "3–4 Agt", tag: "perprod", text: "Perkenalan Prodi: Simulasi Acara", cat: "proker" },
+      { date: "10 Agt", tag: "perprod", text: "Perkenalan Prodi: Gladi Kotor", cat: "proker" },
+      { date: "11 Agt", tag: "perprod", text: "Perkenalan Prodi: Gladi Bersih", cat: "proker" },
       { date: "15 Agt", tag: "holiday", text: "Maulid Nabi Muhammad SAW", cat: "holiday" },
-      { date: "16 Agt", tag: "perprod", text: "Perkenalan Prodi: Gladi Kotor", cat: "proker" },
       { date: "17 Agt", tag: "holiday", text: "HUT ke-82 Kemerdekaan RI", cat: "holiday" },
-      { date: "18 Agt", tag: "perprod", text: "Perkenalan Prodi: Gladi Bersih", cat: "proker" },
+      { date: "24 Agt", tag: "sinight", text: "SI NIGHT: Pleno 3", cat: "proker" },
+      { date: "26 Agt", tag: "sinight", text: "SI NIGHT: Simulasi", cat: "proker" },
       { date: "31 Agt", tag: "isfest", text: "ISFEST: Pleno 3 & TUTUP Regis Lomba Aka & Non-Aka", cat: "proker" }
     ],
     9: [
       { date: "1 Sep", tag: "isfest", text: "ISFEST: TM Lomba Akademik & Mulai Pengerjaan (Deadline 25 Sep)", cat: "proker" },
       { date: "1, 15, 29 Sep", tag: "hukesma", text: "Hukesma: Rabu Lagu (1, 15, 29 September)", cat: "divisi" },
+      { date: "2 Sep", tag: "sinight", text: "SI NIGHT: Gladi Kotor", cat: "proker" },
+      { date: "3 Sep", tag: "sinight", text: "SI NIGHT: Gladi Bersih", cat: "proker" },
       { date: "4 Sep", tag: "nonaka", text: "Siberian Week: Badminton 🏸", cat: "divisi" },
       { date: "6 Sep", tag: "isfest", text: "ISFEST: Technical Meeting Non-Akademik", cat: "proker" },
       { date: "6–17 Sep", tag: "social", text: "Social IS ME: Open Rekrutmen Panitia", cat: "proker" },
       { date: "9 Sep", tag: "hukesma", text: "Hukesma: HIMSI Anniversary 🎉", cat: "divisi" },
+      { date: "9–10 Sep", tag: "sinight", text: "SI NIGHT: Hari H Acara 🎉✨", cat: "proker" },
       { date: "9–11, 17–18 Sep", tag: "isfest", text: "ISFEST: MLBB (Penyisihan 9–11, Final 17–18 Sep)", cat: "proker" },
       { date: "14 Sep", tag: "perprod", text: "Perkenalan Prodi: Pembubaran Panitia", cat: "proker" },
       { date: "18 Sep", tag: "nonaka", text: "Siberian Week: Futsal ⚽", cat: "divisi" },
       { date: "22–23 Sep", tag: "social", text: "Social IS ME: Interview Anggota Panitia", cat: "proker" },
       { date: "22–24, 25 Sep", tag: "isfest", text: "ISFEST: Valorant (Penyisihan 22–24, Final 25 Sep)", cat: "proker" },
       { date: "29 Sep", tag: "isfest", text: "ISFEST: Announcement Finalis Akademik", cat: "proker" },
-      { date: "30 Sep", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode September", cat: "divisi" }
+      { date: "30 Sep", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode September", cat: "divisi" },
+      { date: "30 Sep", tag: "sinight", text: "SI NIGHT: Pembubaran Panitia", cat: "proker" }
     ],
     10: [
       { date: "1 Okt", tag: "isfest", text: "ISFEST: Final Akademik", cat: "proker" },
@@ -936,20 +950,32 @@
   addEvent(2027, 11, 26, "Social IS ME: Penyuluhan", "social", "social");
   addEvent(2027, 12, 6, "Social IS ME: Pembubaran Panitia", "social", "social");
 
+  /* SI NIGHT */
+  addEventRange(2027, 3, 1, 16, "SI NIGHT: Open Rekrutmen Panitia", "sinight", "sinight");
+  addEventRange(2027, 3, 22, 23, "SI NIGHT: Interview Panitia", "sinight", "sinight");
+  addEvent(2027, 3, 31, "SI NIGHT: Pleno 1", "sinight", "sinight");
+  addEvent(2027, 5, 10, "SI NIGHT: Pleno 2", "sinight", "sinight");
+  addEvent(2027, 8, 24, "SI NIGHT: Pleno 3", "sinight", "sinight");
+  addEvent(2027, 8, 26, "SI NIGHT: Simulasi Acara", "sinight", "sinight");
+  addEvent(2027, 9, 2, "SI NIGHT: Gladi Kotor", "sinight", "sinight");
+  addEvent(2027, 9, 3, "SI NIGHT: Gladi Bersih", "sinight", "sinight");
+  addEventRange(2027, 9, 9, 10, "SI NIGHT: Hari H Acara 🎉✨", "sinight", "sinight");
+  addEvent(2027, 9, 30, "SI NIGHT: Pembubaran Panitia", "sinight", "sinight");
+
   /* Perkenalan Prodi */
   addEventRange(2027, 4, 19, 30, "Perkenalan Prodi: Open Rekrutmen Panitia", "perprod", "perprod");
   addEventRange(2027, 5, 4, 5, "Perkenalan Prodi: Interview Panitia", "perprod", "perprod");
   addEvent(2027, 5, 13, "Perkenalan Prodi: Pleno 1", "perprod", "perprod");
   addEvent(2027, 7, 3, "Perkenalan Prodi: Pembekalan PIC", "perprod", "perprod");
   addEvent(2027, 7, 10, "Perkenalan Prodi: Pembekalan PIC", "perprod", "perprod");
-  addEvent(2027, 7, 17, "Perkenalan Prodi: Forum Foto PIC", "perprod", "perprod");
+  addEvent(2027, 7, 15, "Perkenalan Prodi: Forum Foto PIC", "perprod", "perprod");
+  addEvent(2027, 7, 17, "Perkenalan Prodi: Pembekalan PIC", "perprod", "perprod");
   addEvent(2027, 7, 24, "Perkenalan Prodi: Pembekalan PIC", "perprod", "perprod");
   addEvent(2027, 7, 28, "Perkenalan Prodi: Rapat Acara x PIC x Perkap x Keamanan", "perprod", "perprod");
-  addEvent(2027, 7, 31, "Perkenalan Prodi: Pembekalan PIC", "perprod", "perprod");
-  addEvent(2027, 8, 4, "Perkenalan Prodi: Pleno 2", "perprod", "perprod");
-  addEventRange(2027, 8, 10, 11, "Perkenalan Prodi: Simulasi", "perprod", "perprod");
-  addEvent(2027, 8, 16, "Perkenalan Prodi: Gladi Kotor", "perprod", "perprod");
-  addEvent(2027, 8, 18, "Perkenalan Prodi: Gladi Bersih", "perprod", "perprod");
+  addEvent(2027, 7, 30, "Perkenalan Prodi: Pleno 2", "perprod", "perprod");
+  addEventRange(2027, 8, 3, 4, "Perkenalan Prodi: Simulasi Acara", "perprod", "perprod");
+  addEvent(2027, 8, 10, "Perkenalan Prodi: Gladi Kotor", "perprod", "perprod");
+  addEvent(2027, 8, 11, "Perkenalan Prodi: Gladi Bersih", "perprod", "perprod");
   addEvent(2027, 9, 14, "Perkenalan Prodi: Pembubaran Panitia", "perprod", "perprod");
 
   /* Divisi Akademik */
@@ -1012,6 +1038,7 @@
     if (type === 'isfest')  return '#d97706';
     if (type === 'social')  return '#e11d48';
     if (type === 'perprod') return '#7c3aed';
+    if (type === 'sinight') return '#06b6d4';
     if (type === 'divaka')  return '#059669';
     if (type === 'hukesma') return '#2563eb';
     if (type === 'nonaka')  return '#ea580c';
@@ -1077,6 +1104,8 @@
           classes.push('type-social');
         } else if (types[0] === 'perprod') {
           classes.push('type-perprod');
+        } else if (types[0] === 'sinight') {
+          classes.push('type-sinight');
         } else if (types[0] === 'divaka') {
           classes.push('type-divaka');
         } else if (types[0] === 'hukesma') {
@@ -1202,14 +1231,30 @@
         { date: "19 – 30 Apr", desc: "Open Rekrutmen Panitia" },
         { date: "4 – 5 Mei", desc: "Interview Panitia" },
         { date: "13 Mei", desc: "Pleno 1" },
-        { date: "3, 10, 24, 31 Jul", desc: "Pembekalan PIC (Setiap Sabtu)" },
-        { date: "17 Jul", desc: "Forum Foto PIC" },
+        { date: "3, 10, 17, 24 Jul", desc: "Pembekalan PIC (Setiap Sabtu s.d. 24 Juli)" },
+        { date: "15 Jul", desc: "Forum Foto PIC" },
         { date: "28 Jul", desc: "Rapat Koordinasi: Acara x PIC x Perkap x Keamanan" },
-        { date: "4 Agt", desc: "Pleno 2" },
-        { date: "10 – 11 Agt", desc: "Simulasi Acara" },
-        { date: "16 Agt", desc: "Gladi Kotor" },
-        { date: "18 Agt", desc: "Gladi Bersih" },
+        { date: "30 Jul", desc: "Pleno 2" },
+        { date: "3 – 4 Agt", desc: "Simulasi Acara" },
+        { date: "10 Agt", desc: "Gladi Kotor" },
+        { date: "11 Agt", desc: "Gladi Bersih" },
         { date: "14 Sep", desc: "Pembubaran Panitia Perkenalan Prodi" }
+      ]
+    },
+    {
+      title: "SI NIGHT (Malam Keakraban Mahasiswa SI)",
+      color: "#06b6d4",
+      events: [
+        { date: "1 – 16 Mar", desc: "Open Rekrutmen Panitia" },
+        { date: "22 – 23 Mar", desc: "Interview Panitia" },
+        { date: "31 Mar", desc: "Pleno 1" },
+        { date: "10 Mei", desc: "Pleno 2" },
+        { date: "24 Agt", desc: "Pleno 3" },
+        { date: "26 Agt", desc: "Simulasi Acara" },
+        { date: "2 Sep", desc: "Gladi Kotor" },
+        { date: "3 Sep", desc: "Gladi Bersih" },
+        { date: "9 – 10 Sep", desc: "Puncak Acara: Hari H SI NIGHT 🎉✨" },
+        { date: "30 Sep", desc: "Pembubaran Panitia SI NIGHT" }
       ]
     },
     {
