@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalender Akademik & Proker HIMSI UMN 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===================== MODERN VARIABLES & PALETTE ===================== */
+    :root {
+      --bg-canvas: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-subtle: #e2e8f0;
+      
+      /* Vibrant Distinct Proker Colors */
+      --c-holiday: #ef4444;   /* Merah */
+      --c-cuti: #f97316;      /* Oranye */
+      --c-akademik: #0284c7;  /* Biru UMN */
+      --c-isfest: #d97706;    /* Amber Emas */
+      --c-perprod: #7c3aed;   /* Ungu Violet */
+      --c-social: #e11d48;    /* Rose Pink */
+      --c-divaka: #059669;    /* Hijau Emerald */
+      --c-hukesma: #2563eb;   /* Biru Hukesma */
+      --c-nonaka: #ea580c;    /* Oranye Kemerahan */
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-canvas);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(13, 148, 136, 0.05) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(124, 58, 237, 0.04) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 40px 24px 100px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===================== HERO HEADER ===================== */
+    .hero-container {
+      max-width: 1320px;
+      margin: 0 auto 36px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge-umn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: -1.2px;
+      line-height: 1.15;
+      color: #0f172a;
+      margin-bottom: 12px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #2563eb 0%, #0d9488 60%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      max-width: 750px;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    /* ===================== ACTION BAR & QUICK FILTERS ===================== */
+    .action-bar {
+      max-width: 1320px;
+      margin: 0 auto 24px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      background: #ffffff;
+      padding: 12px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+    }
+
+    .btn-rekap-master {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+
+    .btn-rekap-master:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 7px 15px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .filter-btn.active {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+    }
+
+    /* ===================== CATEGORY LEGEND BAR ===================== */
+    .dashboard-legend {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 20px 24px;
+      max-width: 1320px;
+      margin: 0 auto 36px auto;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 18px;
+    }
+
+    .legend-cat {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+      width: 145px;
+      flex-shrink: 0;
+    }
+
+    .legend-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      flex: 1;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .pill:hover {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ===================== GRID 3 x 4 ===================== */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    /* ===================== MONTH CARD ===================== */
+    .month-card {
+      background: #ffffff;
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .month-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.1);
+      border-color: #cbd5e1;
+    }
+
+    .month-header {
+      padding: 16px 20px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .month-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: #0f172a;
+    }
+
+    .month-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      background: #f1f5f9;
+      border-radius: 9999px;
+      color: #475569;
+    }
+
+    /* Day of week row */
+    .dow-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background: #f8fafc;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .dow-cell {
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 9px 0;
+      color: #64748b;
+    }
+
+    .dow-cell.sun { color: #ef4444; }
+    .dow-cell.sat { color: #10b981; }
+
+    /* Days grid */
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: 12px;
+      gap: 5px;
+    }
+
+    .day-cell {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 2px;
+      user-select: none;
+      background: transparent;
+    }
+
+    .day-cell.empty { background: transparent; cursor: default; }
+
+    .day-num {
+      line-height: 1;
+    }
+
+    .dots-container {
+      display: flex;
+      gap: 3px;
+      margin-top: 3.5px;
+      height: 4.5px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .event-dot {
+      width: 4.5px;
+      height: 4.5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .day-cell.sunday   { color: #ef4444; }
+    .day-cell.saturday { color: #10b981; }
+
+    /* Themed Day States */
+    .day-cell.type-holiday { background: #fee2e2; color: #dc2626 !important; font-weight: 800; }
+    .day-cell.type-cuti    { background: #ffedd5; color: #ea580c !important; font-weight: 800; }
+    .day-cell.type-akademik{ background: #e0f2fe; color: #0369a1 !important; font-weight: 700; }
+    .day-cell.type-isfest  { background: #fef3c7; color: #b45309 !important; font-weight: 700; }
+    .day-cell.type-perprod { background: #ede9fe; color: #6d28d9 !important; font-weight: 700; }
+    .day-cell.type-social  { background: #ffe4e6; color: #be123c !important; font-weight: 700; }
+    .day-cell.type-divaka  { background: #d1fae5; color: #047857 !important; font-weight: 700; }
+    .day-cell.type-hukesma { background: #dbeafe; color: #1d4ed8 !important; font-weight: 700; }
+    .day-cell.type-nonaka  { background: #ffedd5; color: #c2410c !important; font-weight: 700; }
+    .day-cell.type-multi   { background: #fdf4ff; color: #86198f !important; font-weight: 800; box-shadow: inset 0 0 0 1.5px #d8b4fe; }
+
+    .day-cell:not(.empty):hover {
+      transform: scale(1.15);
+      z-index: 20;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    /* ===================== TIMELINE STREAM DI BAWAH KARTU ===================== */
+    .month-timeline {
+      background: #fafafa;
+      border-top: 1px solid var(--border-subtle);
+      padding: 16px 18px;
+      font-size: 0.75rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 275px;
+      overflow-y: auto;
+    }
+
+    .timeline-title {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .timeline-track {
+      position: relative;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+    }
+
+    .timeline-node {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .timeline-node::before {
+      content: '';
+      position: absolute;
+      left: -17px;
+      top: 5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--node-color, #94a3b8);
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 1.5px var(--node-color, #94a3b8);
+    }
+
+    .timeline-node-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .timeline-badge {
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .timeline-node-text {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.4;
+    }
+
+    /* Tag styles */
+    .tag-holiday  { background: #fee2e2; color: #b91c1c; --node-color: #ef4444; }
+    .tag-cuti     { background: #ffedd5; color: #c2410c; --node-color: #f97316; }
+    .tag-akademik { background: #e0f2fe; color: #0369a1; --node-color: #0284c7; }
+    .tag-isfest   { background: #fef3c7; color: #92400e; --node-color: #d97706; }
+    .tag-perprod  { background: #ede9fe; color: #5b21b6; --node-color: #7c3aed; }
+    .tag-social   { background: #ffe4e6; color: #9f1239; --node-color: #e11d48; }
+    .tag-divaka   { background: #d1fae5; color: #065f46; --node-color: #059669; }
+    .tag-hukesma  { background: #dbeafe; color: #1e40af; --node-color: #2563eb; }
+    .tag-nonaka   { background: #ffedd5; color: #c2410c; --node-color: #ea580c; }
+
+    .timeline-empty {
+      color: #94a3b8;
+      font-style: italic;
+      font-size: 0.74rem;
+      padding: 8px 0;
+    }
+
+    /* ===================== MODAL REKAPAN FULLSCREEN GLASS ===================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 999999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-container {
+      background: #ffffff;
+      border-radius: 24px;
+      max-width: 980px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.3);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      padding: 22px 30px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 10;
+    }
+
+    .modal-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .modal-close-btn {
+      background: #f1f5f9;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+      transform: rotate(90deg);
+    }
+
+    .modal-body {
+      padding: 26px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .rekap-proker-card {
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .rekap-proker-header {
+      padding: 13px 20px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+    }
+
+    .rekap-list {
+      padding: 14px 20px;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      font-size: 0.82rem;
+    }
+
+    .rekap-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .rekap-date {
+      min-width: 140px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    /* ===================== FLOATING TOOLTIP ===================== */
+    .tooltip-popup {
+      position: absolute;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.74rem;
+      pointer-events: none;
+      z-index: 99999;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.3);
+      line-height: 1.5;
+      display: none;
+      max-width: 270px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* ===================== FOOTER ===================== */
+    .page-footer {
+      text-align: center;
+      margin-top: 60px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1080px) {
+      .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+      .legend-cat { width: 100%; }
+    }
+    @media (max-width: 680px) {
+      .calendar-grid { grid-template-columns: 1fr; }
+      .action-bar { flex-direction: column; align-items: stretch; }
+      .btn-rekap-master { justify-content: center; }
+      .filter-group { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero-container">
+  <div class="badge-umn">🏛️ Universitas Multimedia Nusantara</div>
+  <h1 class="hero-title">Kalender Akademik & <span>Proker HIMSI 2027</span></h1>
+  <p class="hero-desc">Sistem Visualisasi Jadwal Terpadu, Timeline Alur Kegiatan Mahasiswa Sistem Informasi & Hari Libur Resmi SKB 3 Menteri</p>
+</header>
+
+<!-- ACTION BAR & QUICK FILTERS -->
+<div class="action-bar">
+  <button class="btn-rekap-master" onclick="openModal()">
+    📋 Rekapan Lengkap Semua Hari & Proker
+  </button>
+  <div class="filter-group">
+    <button class="filter-btn active" onclick="filterCategory('all', this)">✨ Semua Agenda</button>
+    <button class="filter-btn" onclick="filterCategory('proker', this)">🎯 Proker Utama</button>
+    <button class="filter-btn" onclick="filterCategory('divisi', this)">👥 Divisi HIMSI</button>
+    <button class="filter-btn" onclick="filterCategory('holiday', this)">🔴 Libur & Ujian</button>
+  </div>
+</div>
+
+<!-- CATEGORY DASHBOARD LEGEND -->
+<section class="dashboard-legend">
+  <div class="legend-row">
+    <div class="legend-cat">Hari Libur:</div>
+    <div class="legend-pills">
+      <span class="pill"><span class="pill-dot" style="background: var(--c-holiday);"></span>Libur Nasional</span>
+      <span class="pill"><span class="pill-dot" style="background: var(--c-cuti);"></span>Cuti Bersama</span>
+    </div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-cat">Akademik UMN:</div>
+    <div class="legend-pills">
+      <span class="pill"><span class="pill-dot" style="background: var(--c-akademik);"></span>Masuk Perdana (8 Feb)</span>
+      <span class="pill"><span class="pill-dot" style="background: var(--c-akademik);"></span>UTS (5–17 Apr)</span>
+      <span class="pill"><span class="pill-dot" style="background: var(--c-akademik);"></span>UAS (7–19 Jun)</span>
+    </div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-cat">Proker Utama:</div>
+    <div class="legend-pills">
+      <span class="pill"><span class="pill-dot" style="background: var(--c-isfest);"></span><strong>ISFEST 2027</strong></span>
+      <span class="pill"><span class="pill-dot" style="background: var(--c-perprod);"></span><strong>Perkenalan Prodi</strong></span>
+      <span class="pill"><span class="pill-dot" style="background: var(--c-social);"></span><strong>Social IS ME</strong></span>
+    </div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-cat">Divisi HIMSI:</div>
+    <div class="legend-pills">
+      <span class="pill"><span class="pill-dot" style="background: var(--c-divaka);"></span><strong>Divisi Akademik</strong> (Bimbel, Company Visit, Stuban)</span>
+      <span class="pill"><span class="pill-dot" style="background: var(--c-hukesma);"></span><strong>Divisi Hukesma</strong> (Anniversary, Rabu Lagu, Form Aspirasi)</span>
+      <span class="pill"><span class="pill-dot" style="background: var(--c-nonaka);"></span><strong>Divisi Non-Akademik</strong> (Siberian Week: Futsal, Basket, Badminton)</span>
+    </div>
+  </div>
+</section>
+
+<!-- GRID 3 x 4 (12 BULAN) -->
+<main class="calendar-grid" id="calendarGrid"></main>
+
+<!-- MODAL REKAPAN LENGKAP -->
+<div id="rekapModal" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>📑 Master Timeline & Rekapan Proker HIMSI 2027</h2>
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalContent"></div>
+  </div>
+</div>
+
+<div id="tooltipPopup" class="tooltip-popup"></div>
+
+<footer class="page-footer">
+  <p><strong>Ketentuan Kalender Terpadu HIMSI UMN 2027:</strong></p>
+  <p>🛡️ <strong>Bebas Bentrok:</strong> Seluruh proker tidak dijadwalkan pada hari libur nasional, masa ujian UTS/UAS, dan hari Studi Banding (Stuban).</p>
+  <p>📅 <strong>Form Aspirasi:</strong> Dijadwalkan pada 30 Maret agar tidak bentrok dengan rilis konten <em>Rabu Lagu</em>.</p>
+  <p>⚽ <strong>Siberian Week:</strong> 12 sesi olahraga berputar adil & rata (4x Futsal, 4x Basket, 4x Badminton).</p>
+</footer>
+
+<script>
+  /* =========================================================
+     DATABASE EVENT TAHUN 2027
+  ========================================================= */
+  const EVENTS_MAP = {};
+
+  const MONTHLY_TIMELINE = {
+    1: [
+      { date: "1 Jan", tag: "holiday", text: "Tahun Baru 2027 Masehi", cat: "holiday" },
+      { date: "5 Jan", tag: "holiday", text: "Isra Mikraj Nabi Muhammad SAW", cat: "holiday" }
+    ],
+    2: [
+      { date: "5 Feb", tag: "cuti", text: "Cuti Bersama Tahun Baru Imlek", cat: "holiday" },
+      { date: "6 Feb", tag: "holiday", text: "Tahun Baru Imlek 2578 Kongzili", cat: "holiday" },
+      { date: "8 Feb", tag: "akademik", text: "Masuk Kuliah Perdana Semester Genap", cat: "akademik" },
+      { date: "10–24 Feb", tag: "isfest", text: "ISFEST: Open Rekrutmen Panitia", cat: "proker" },
+      { date: "25–26 Feb", tag: "isfest", text: "ISFEST: Extend Open Rekrutmen Panitia", cat: "proker" }
+    ],
+    3: [
+      { date: "1–3 Mar", tag: "isfest", text: "ISFEST: Interview Panitia", cat: "proker" },
+      { date: "3, 17, 31 Mar", tag: "hukesma", text: "Hukesma: Rabu Lagu (3, 17, 31 Maret)", cat: "divisi" },
+      { date: "5 Mar", tag: "isfest", text: "ISFEST: Announcement Kelulusan Panitia", cat: "proker" },
+      { date: "6 Mar", tag: "nonaka", text: "Siberian Week: Futsal ⚽", cat: "divisi" },
+      { date: "8 Mar", tag: "holiday", text: "Hari Suci Nyepi (Saka 1949)", cat: "holiday" },
+      { date: "9–15 Mar", tag: "holiday", text: "Hari Raya Idulfitri 1448 H & Cuti Bersama", cat: "holiday" },
+      { date: "16, 23, 30 Mar", tag: "divaka", text: "Divisi Akademik: Bimbel HIMSI (16, 23, 30 Maret)", cat: "divisi" },
+      { date: "17 Mar", tag: "isfest", text: "ISFEST: Pleno 1", cat: "proker" },
+      { date: "20 Mar", tag: "nonaka", text: "Siberian Week: Basket 🏀", cat: "divisi" },
+      { date: "25–26 Mar", tag: "holiday", text: "Wafat Yesus Kristus & Cuti Bersama", cat: "holiday" },
+      { date: "28 Mar", tag: "holiday", text: "Kebangkitan Yesus Kristus (Paskah)", cat: "holiday" },
+      { date: "30 Mar", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode Maret (Selasa agar tdk bentrok)", cat: "divisi" }
+    ],
+    4: [
+      { date: "3 Apr", tag: "nonaka", text: "Siberian Week: Badminton 🏸", cat: "divisi" },
+      { date: "5–17 Apr", tag: "akademik", text: "UTS Semester Genap UMN (Rabu Lagu & Siberian Week Libur)", cat: "akademik" },
+      { date: "19–30 Apr", tag: "perprod", text: "Perkenalan Prodi: Open Rekrutmen Panitia", cat: "proker" },
+      { date: "23 Apr", tag: "divaka", text: "Divisi Akademik: Company Visit", cat: "divisi" },
+      { date: "28 Apr", tag: "hukesma", text: "Hukesma: Rabu Lagu (28 April)", cat: "divisi" },
+      { date: "28 Apr", tag: "isfest", text: "ISFEST: Pleno 2", cat: "proker" },
+      { date: "30 Apr", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode April", cat: "divisi" }
+    ],
+    5: [
+      { date: "1 Mei", tag: "holiday", text: "Hari Buruh Internasional (Siberian Week Libur)", cat: "holiday" },
+      { date: "4–5 Mei", tag: "perprod", text: "Perkenalan Prodi: Interview Panitia", cat: "proker" },
+      { date: "6 Mei", tag: "holiday", text: "Kenaikan Yesus Kristus", cat: "holiday" },
+      { date: "8 Mei", tag: "nonaka", text: "Siberian Week: Futsal ⚽", cat: "divisi" },
+      { date: "11 Mei", tag: "isfest", text: "ISFEST: Bonding Panitia", cat: "proker" },
+      { date: "12, 26 Mei", tag: "hukesma", text: "Hukesma: Rabu Lagu (12 & 26 Mei)", cat: "divisi" },
+      { date: "13 Mei", tag: "perprod", text: "Perkenalan Prodi: Pleno 1", cat: "proker" },
+      { date: "13–14 Mei", tag: "isfest", text: "ISFEST: Foto Divisi", cat: "proker" },
+      { date: "15 Mei", tag: "divaka", text: "Divisi Akademik: Studi Banding (Stuban - Bebas Siberian Week)", cat: "divisi" },
+      { date: "17–18 Mei", tag: "holiday", text: "Hari Raya Iduladha 1448 H & Cuti Bersama", cat: "holiday" },
+      { date: "19–20 Mei", tag: "holiday", text: "Hari Raya Waisak & Cuti Bersama", cat: "holiday" },
+      { date: "22 Mei", tag: "nonaka", text: "Siberian Week: Basket 🏀", cat: "divisi" },
+      { date: "31 Mei", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode Mei", cat: "divisi" }
+    ],
+    6: [
+      { date: "1 Jun", tag: "holiday", text: "Hari Lahir Pancasila", cat: "holiday" },
+      { date: "6 Jun", tag: "holiday", text: "Tahun Baru Islam 1449 H", cat: "holiday" },
+      { date: "7–19 Jun", tag: "akademik", text: "UAS Semester Genap UMN", cat: "akademik" },
+      { date: "21 Jun", tag: "isfest", text: "ISFEST: Buka Regis Lomba Akademik (UI/UX, Data)", cat: "proker" }
+    ],
+    7: [
+      { date: "3, 10, 24, 31 Jul", tag: "perprod", text: "Perkenalan Prodi: Pembekalan PIC (3, 10, 24, 31 Juli)", cat: "proker" },
+      { date: "14 Jul", tag: "isfest", text: "ISFEST: Buka Regis Lomba Non-Aka (MLBB, Valo)", cat: "proker" },
+      { date: "17 Jul", tag: "perprod", text: "Perkenalan Prodi: Forum Foto PIC", cat: "proker" },
+      { date: "28 Jul", tag: "perprod", text: "Perkenalan Prodi: Rapat Acara x PIC x Perkap x Keamanan", cat: "proker" },
+      { date: "Sepanjang Bulan", tag: "isfest", text: "ISFEST: Pendaftaran Lomba Akademik & Non-Aka Berjalan", cat: "proker" }
+    ],
+    8: [
+      { date: "4 Agt", tag: "perprod", text: "Perkenalan Prodi: Pleno 2", cat: "proker" },
+      { date: "10–11 Agt", tag: "perprod", text: "Perkenalan Prodi: Simulasi", cat: "proker" },
+      { date: "15 Agt", tag: "holiday", text: "Maulid Nabi Muhammad SAW", cat: "holiday" },
+      { date: "16 Agt", tag: "perprod", text: "Perkenalan Prodi: Gladi Kotor", cat: "proker" },
+      { date: "17 Agt", tag: "holiday", text: "HUT ke-82 Kemerdekaan RI", cat: "holiday" },
+      { date: "18 Agt", tag: "perprod", text: "Perkenalan Prodi: Gladi Bersih", cat: "proker" },
+      { date: "31 Agt", tag: "isfest", text: "ISFEST: Pleno 3 & TUTUP Regis Lomba Aka & Non-Aka", cat: "proker" }
+    ],
+    9: [
+      { date: "1 Sep", tag: "isfest", text: "ISFEST: TM Lomba Akademik & Mulai Pengerjaan (Deadline 25 Sep)", cat: "proker" },
+      { date: "1, 15, 29 Sep", tag: "hukesma", text: "Hukesma: Rabu Lagu (1, 15, 29 September)", cat: "divisi" },
+      { date: "4 Sep", tag: "nonaka", text: "Siberian Week: Badminton 🏸", cat: "divisi" },
+      { date: "6 Sep", tag: "isfest", text: "ISFEST: Technical Meeting Non-Akademik", cat: "proker" },
+      { date: "6–17 Sep", tag: "social", text: "Social IS ME: Open Rekrutmen Panitia", cat: "proker" },
+      { date: "9 Sep", tag: "hukesma", text: "Hukesma: HIMSI Anniversary 🎉", cat: "divisi" },
+      { date: "9–11, 17–18 Sep", tag: "isfest", text: "ISFEST: MLBB (Penyisihan 9–11, Final 17–18 Sep)", cat: "proker" },
+      { date: "14 Sep", tag: "perprod", text: "Perkenalan Prodi: Pembubaran Panitia", cat: "proker" },
+      { date: "18 Sep", tag: "nonaka", text: "Siberian Week: Futsal ⚽", cat: "divisi" },
+      { date: "22–23 Sep", tag: "social", text: "Social IS ME: Interview Anggota Panitia", cat: "proker" },
+      { date: "22–24, 25 Sep", tag: "isfest", text: "ISFEST: Valorant (Penyisihan 22–24, Final 25 Sep)", cat: "proker" },
+      { date: "29 Sep", tag: "isfest", text: "ISFEST: Announcement Finalis Akademik", cat: "proker" },
+      { date: "30 Sep", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode September", cat: "divisi" }
+    ],
+    10: [
+      { date: "1 Okt", tag: "isfest", text: "ISFEST: Final Akademik", cat: "proker" },
+      { date: "2 Okt", tag: "nonaka", text: "Siberian Week: Basket 🏀", cat: "divisi" },
+      { date: "4 Okt", tag: "social", text: "Social IS ME: Pleno 1", cat: "proker" },
+      { date: "6 Okt", tag: "isfest", text: "ISFEST: Seminar", cat: "proker" },
+      { date: "9 Okt", tag: "divaka", text: "Divisi Akademik: Studi Banding (Stuban - Bebas Siberian Week)", cat: "divisi" },
+      { date: "13, 27 Okt", tag: "hukesma", text: "Hukesma: Rabu Lagu (13 & 27 Oktober)", cat: "divisi" },
+      { date: "16 Okt", tag: "nonaka", text: "Siberian Week: Badminton 🏸", cat: "divisi" },
+      { date: "30 Okt", tag: "nonaka", text: "Siberian Week: Futsal ⚽", cat: "divisi" },
+      { date: "31 Okt", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode Oktober", cat: "divisi" }
+    ],
+    11: [
+      { date: "2 Nov", tag: "isfest", text: "ISFEST: Pembubaran Panitia", cat: "proker" },
+      { date: "3 Nov", tag: "social", text: "Social IS ME: Pleno 2", cat: "proker" },
+      { date: "3–12 Nov", tag: "social", text: "Social IS ME: Open Rekrutmen Volunteer", cat: "proker" },
+      { date: "5 Nov", tag: "divaka", text: "Divisi Akademik: Company Visit", cat: "divisi" },
+      { date: "10, 24 Nov", tag: "hukesma", text: "Hukesma: Rabu Lagu (10 & 24 November)", cat: "divisi" },
+      { date: "13 Nov", tag: "nonaka", text: "Siberian Week: Basket 🏀", cat: "divisi" },
+      { date: "15 Nov", tag: "social", text: "Social IS ME: Pengumuman Volunteer", cat: "proker" },
+      { date: "18 Nov", tag: "social", text: "Social IS ME: Pembekalan Volunteer", cat: "proker" },
+      { date: "25 Nov", tag: "social", text: "Social IS ME: Donor Darah", cat: "proker" },
+      { date: "26 Nov", tag: "social", text: "Social IS ME: Penyuluhan", cat: "proker" },
+      { date: "27 Nov", tag: "nonaka", text: "Siberian Week: Badminton 🏸", cat: "divisi" },
+      { date: "30 Nov", tag: "hukesma", text: "Hukesma: Form Aspirasi Periode November", cat: "divisi" }
+    ],
+    12: [
+      { date: "6 Des", tag: "social", text: "Social IS ME: Pembubaran Panitia", cat: "proker" },
+      { date: "24 Des", tag: "cuti", text: "Cuti Bersama Hari Raya Natal", cat: "holiday" },
+      { date: "25 Des", tag: "holiday", text: "Hari Raya Natal", cat: "holiday" },
+      { date: "26 Des", tag: "holiday", text: "Isra Mikraj / Cuti Bersama Natal", cat: "holiday" }
+    ]
+  };
+
+  function addEvent(year, month, day, label, type, category) {
+    const key = `${year}-${month}-${day}`;
+    if (!EVENTS_MAP[key]) EVENTS_MAP[key] = [];
+    EVENTS_MAP[key].push({ label, type, category });
+  }
+
+  function addEventRange(year, month, startDay, endDay, label, type, category) {
+    for (let d = startDay; d <= endDay; d++) {
+      addEvent(year, month, d, label, type, category);
+    }
+  }
+
+  /* Libur Nasional */
+  const HOLIDAYS = [
+    [2027, 1, 1, "Tahun Baru 2027 Masehi", "holiday", "libur"],
+    [2027, 1, 5, "Isra Mikraj Nabi Muhammad SAW", "holiday", "libur"],
+    [2027, 2, 5, "Cuti Bersama Tahun Baru Imlek", "cuti", "libur"],
+    [2027, 2, 6, "Tahun Baru Imlek 2578 Kongzili", "holiday", "libur"],
+    [2027, 3, 8, "Hari Suci Nyepi (Saka 1949)", "holiday", "libur"],
+    [2027, 3, 9, "Cuti Bersama Idulfitri", "cuti", "libur"],
+    [2027, 3, 10, "Hari Raya Idulfitri 1448 H", "holiday", "libur"],
+    [2027, 3, 11, "Hari Raya Idulfitri 1448 H", "holiday", "libur"],
+    [2027, 3, 12, "Cuti Bersama Idulfitri", "cuti", "libur"],
+    [2027, 3, 15, "Cuti Bersama Idulfitri", "cuti", "libur"],
+    [2027, 3, 25, "Cuti Bersama Wafat Yesus Kristus", "cuti", "libur"],
+    [2027, 3, 26, "Wafat Yesus Kristus", "holiday", "libur"],
+    [2027, 3, 28, "Kebangkitan Yesus Kristus (Paskah)", "holiday", "libur"],
+    [2027, 5, 1, "Hari Buruh Internasional", "holiday", "libur"],
+    [2027, 5, 6, "Kenaikan Yesus Kristus", "holiday", "libur"],
+    [2027, 5, 17, "Hari Raya Iduladha 1448 H", "holiday", "libur"],
+    [2027, 5, 18, "Cuti Bersama Iduladha", "cuti", "libur"],
+    [2027, 5, 19, "Cuti Bersama Hari Raya Waisak", "cuti", "libur"],
+    [2027, 5, 20, "Hari Raya Waisak 2571 BE", "holiday", "libur"],
+    [2027, 6, 1, "Hari Lahir Pancasila", "holiday", "libur"],
+    [2027, 6, 6, "Tahun Baru Islam 1449 H", "holiday", "libur"],
+    [2027, 8, 15, "Maulid Nabi Muhammad SAW", "holiday", "libur"],
+    [2027, 8, 17, "HUT ke-82 Kemerdekaan RI", "holiday", "libur"],
+    [2027, 12, 24, "Cuti Bersama Natal", "cuti", "libur"],
+    [2027, 12, 25, "Hari Raya Natal", "holiday", "libur"],
+    [2027, 12, 26, "Cuti Bersama Natal", "cuti", "libur"]
+  ];
+  HOLIDAYS.forEach(([y, m, d, lbl, t, c]) => addEvent(y, m, d, lbl, t, c));
+
+  /* Akademik UMN */
+  addEvent(2027, 2, 8, "Kuliah Perdana UMN Semester Genap", "akademik", "umn");
+  addEventRange(2027, 4, 5, 17, "UTS Semester Genap UMN", "akademik", "umn");
+  addEventRange(2027, 6, 7, 19, "UAS Semester Genap UMN", "akademik", "umn");
+
+  /* ISFEST 2027 */
+  addEventRange(2027, 2, 10, 24, "ISFEST: Open Rekrutmen Panitia", "isfest", "isfest");
+  addEventRange(2027, 2, 25, 26, "ISFEST: Extend Open Rekrutmen Panitia", "isfest", "isfest");
+  addEventRange(2027, 3, 1, 3, "ISFEST: Interview Panitia", "isfest", "isfest");
+  addEvent(2027, 3, 5, "ISFEST: Announcement Kelulusan Panitia", "isfest", "isfest");
+  addEvent(2027, 3, 17, "ISFEST: Pleno 1", "isfest", "isfest");
+  addEvent(2027, 4, 28, "ISFEST: Pleno 2", "isfest", "isfest");
+  addEvent(2027, 8, 31, "ISFEST: Pleno 3", "isfest", "isfest");
+  addEvent(2027, 5, 11, "ISFEST: Bonding Panitia", "isfest", "isfest");
+  addEventRange(2027, 5, 13, 14, "ISFEST: Foto Divisi", "isfest", "isfest");
+
+  addEventRange(2027, 6, 21, 30, "ISFEST: Regis Lomba Akademik (UI/UX, Data)", "isfest", "isfest");
+  addEventRange(2027, 7, 1, 31, "ISFEST: Regis Lomba Akademik (UI/UX, Data)", "isfest", "isfest");
+  addEventRange(2027, 8, 1, 31, "ISFEST: Regis Lomba Akademik (Tutup 31 Ags)", "isfest", "isfest");
+
+  addEventRange(2027, 7, 14, 31, "ISFEST: Regis Lomba Non-Aka (MLBB, Valo)", "isfest", "isfest");
+  addEventRange(2027, 8, 1, 31, "ISFEST: Regis Lomba Non-Aka (Tutup 31 Ags)", "isfest", "isfest");
+
+  addEvent(2027, 9, 1, "ISFEST: Technical Meeting Lomba Akademik", "isfest", "isfest");
+  addEventRange(2027, 9, 1, 25, "ISFEST: Pengerjaan Lomba Akademik (Deadline 25 Sep)", "isfest", "isfest");
+  addEvent(2027, 9, 29, "ISFEST: Announcement Finalis Akademik", "isfest", "isfest");
+
+  addEvent(2027, 9, 6, "ISFEST: Technical Meeting Non-Akademik", "isfest", "isfest");
+  addEventRange(2027, 9, 9, 11, "ISFEST: Penyisihan MLBB", "isfest", "isfest");
+  addEventRange(2027, 9, 17, 18, "ISFEST: Final MLBB", "isfest", "isfest");
+  addEventRange(2027, 9, 22, 24, "ISFEST: Penyisihan Valorant", "isfest", "isfest");
+  addEvent(2027, 9, 25, "ISFEST: Final Valorant", "isfest", "isfest");
+
+  addEvent(2027, 10, 1, "ISFEST: Final Akademik", "isfest", "isfest");
+  addEvent(2027, 10, 6, "ISFEST: Seminar", "isfest", "isfest");
+  addEvent(2027, 11, 2, "ISFEST: Pembubaran Panitia", "isfest", "isfest");
+
+  /* Social IS ME */
+  addEventRange(2027, 9, 6, 17, "Social IS ME: Open Rekrutmen Panitia", "social", "social");
+  addEventRange(2027, 9, 22, 23, "Social IS ME: Interview Anggota Panitia", "social", "social");
+  addEvent(2027, 10, 4, "Social IS ME: Pleno 1", "social", "social");
+  addEvent(2027, 11, 3, "Social IS ME: Pleno 2", "social", "social");
+  addEventRange(2027, 11, 3, 12, "Social IS ME: Open Rekrutmen Volunteer", "social", "social");
+  addEvent(2027, 11, 15, "Social IS ME: Pengumuman Volunteer", "social", "social");
+  addEvent(2027, 11, 18, "Social IS ME: Pembekalan Volunteer", "social", "social");
+  addEvent(2027, 11, 25, "Social IS ME: Donor Darah", "social", "social");
+  addEvent(2027, 11, 26, "Social IS ME: Penyuluhan", "social", "social");
+  addEvent(2027, 12, 6, "Social IS ME: Pembubaran Panitia", "social", "social");
+
+  /* Perkenalan Prodi */
+  addEventRange(2027, 4, 19, 30, "Perkenalan Prodi: Open Rekrutmen Panitia", "perprod", "perprod");
+  addEventRange(2027, 5, 4, 5, "Perkenalan Prodi: Interview Panitia", "perprod", "perprod");
+  addEvent(2027, 5, 13, "Perkenalan Prodi: Pleno 1", "perprod", "perprod");
+  addEvent(2027, 7, 3, "Perkenalan Prodi: Pembekalan PIC", "perprod", "perprod");
+  addEvent(2027, 7, 10, "Perkenalan Prodi: Pembekalan PIC", "perprod", "perprod");
+  addEvent(2027, 7, 17, "Perkenalan Prodi: Forum Foto PIC", "perprod", "perprod");
+  addEvent(2027, 7, 24, "Perkenalan Prodi: Pembekalan PIC", "perprod", "perprod");
+  addEvent(2027, 7, 28, "Perkenalan Prodi: Rapat Acara x PIC x Perkap x Keamanan", "perprod", "perprod");
+  addEvent(2027, 7, 31, "Perkenalan Prodi: Pembekalan PIC", "perprod", "perprod");
+  addEvent(2027, 8, 4, "Perkenalan Prodi: Pleno 2", "perprod", "perprod");
+  addEventRange(2027, 8, 10, 11, "Perkenalan Prodi: Simulasi", "perprod", "perprod");
+  addEvent(2027, 8, 16, "Perkenalan Prodi: Gladi Kotor", "perprod", "perprod");
+  addEvent(2027, 8, 18, "Perkenalan Prodi: Gladi Bersih", "perprod", "perprod");
+  addEvent(2027, 9, 14, "Perkenalan Prodi: Pembubaran Panitia", "perprod", "perprod");
+
+  /* Divisi Akademik */
+  addEvent(2027, 3, 16, "Divisi Akademik: Bimbel HIMSI", "divaka", "divaka");
+  addEvent(2027, 3, 23, "Divisi Akademik: Bimbel HIMSI", "divaka", "divaka");
+  addEvent(2027, 3, 30, "Divisi Akademik: Bimbel HIMSI", "divaka", "divaka");
+  addEvent(2027, 4, 23, "Divisi Akademik: Company Visit", "divaka", "divaka");
+  addEvent(2027, 5, 15, "Divisi Akademik: Studi Banding (Stuban)", "divaka", "divaka");
+  addEvent(2027, 10, 9, "Divisi Akademik: Studi Banding (Stuban)", "divaka", "divaka");
+  addEvent(2027, 11, 5, "Divisi Akademik: Company Visit", "divaka", "divaka");
+
+  /* Divisi Hukesma */
+  addEvent(2027, 9, 9, "Divisi Hukesma: HIMSI Anniversary 🎉", "hukesma", "hukesma");
+  [
+    [2027, 3, 3], [2027, 3, 17], [2027, 3, 31],
+    [2027, 4, 28],
+    [2027, 5, 12], [2027, 5, 26],
+    [2027, 9, 1], [2027, 9, 15], [2027, 9, 29],
+    [2027, 10, 13], [2027, 10, 27],
+    [2027, 11, 10], [2027, 11, 24]
+  ].forEach(([y, m, d]) => addEvent(y, m, d, "Divisi Hukesma: Rabu Lagu 🎶", "hukesma", "hukesma"));
+
+  addEvent(2027, 3, 30, "Divisi Hukesma: Form Aspirasi Periode Maret (Selasa agar tdk bentrok)", "hukesma", "hukesma");
+  addEvent(2027, 4, 30, "Divisi Hukesma: Form Aspirasi Periode April", "hukesma", "hukesma");
+  addEvent(2027, 5, 31, "Divisi Hukesma: Form Aspirasi Periode Mei", "hukesma", "hukesma");
+  addEvent(2027, 9, 30, "Divisi Hukesma: Form Aspirasi Periode September", "hukesma", "hukesma");
+  addEvent(2027, 10, 31, "Divisi Hukesma: Form Aspirasi Periode Oktober", "hukesma", "hukesma");
+  addEvent(2027, 11, 30, "Divisi Hukesma: Form Aspirasi Periode November", "hukesma", "hukesma");
+
+  /* Divisi Non-Akademik */
+  const SIBERIAN_WEEK_SCHEDULE = [
+    [2027, 3, 6, "Futsal ⚽"],
+    [2027, 3, 20, "Basket 🏀"],
+    [2027, 4, 3, "Badminton 🏸"],
+    [2027, 5, 8, "Futsal ⚽"],
+    [2027, 5, 22, "Basket 🏀"],
+    [2027, 9, 4, "Badminton 🏸"],
+    [2027, 9, 18, "Futsal ⚽"],
+    [2027, 10, 2, "Basket 🏀"],
+    [2027, 10, 16, "Badminton 🏸"],
+    [2027, 10, 30, "Futsal ⚽"],
+    [2027, 11, 13, "Basket 🏀"],
+    [2027, 11, 27, "Badminton 🏸"]
+  ];
+  SIBERIAN_WEEK_SCHEDULE.forEach(([y, m, d, sport]) => {
+    addEvent(y, m, d, `Divisi Non-Aka: Siberian Week (${sport})`, "nonaka", "nonaka");
+  });
+
+  /* ===================== BUILDER & COLOR MAP ===================== */
+  const MONTH_NAMES = [
+    "Januari","Februari","Maret","April","Mei","Juni",
+    "Juli","Agustus","September","Oktober","November","Desember"
+  ];
+  const DOW_LABELS = ["Min","Sen","Sel","Rab","Kam","Jum","Sab"];
+
+  function getDotColor(type) {
+    if (type === 'holiday') return '#ef4444';
+    if (type === 'cuti')    return '#f97316';
+    if (type === 'akademik')return '#0284c7';
+    if (type === 'isfest')  return '#d97706';
+    if (type === 'social')  return '#e11d48';
+    if (type === 'perprod') return '#7c3aed';
+    if (type === 'divaka')  return '#059669';
+    if (type === 'hukesma') return '#2563eb';
+    if (type === 'nonaka')  return '#ea580c';
+    return '#64748b';
+  }
+
+  function buildMonth(year, month) {
+    const card = document.createElement('div');
+    card.className = 'month-card';
+
+    /* Header */
+    card.innerHTML = `
+      <div class="month-header">
+        <span class="month-title">${MONTH_NAMES[month - 1]}</span>
+        <span class="month-badge">${year}</span>
+      </div>`;
+
+    /* DOW Row */
+    const dowRow = document.createElement('div');
+    dowRow.className = 'dow-row';
+    DOW_LABELS.forEach((d, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'dow-cell' + (i === 0 ? ' sun' : i === 6 ? ' sat' : '');
+      cell.textContent = d;
+      dowRow.appendChild(cell);
+    });
+    card.appendChild(dowRow);
+
+    /* Days Grid */
+    const grid = document.createElement('div');
+    grid.className = 'days-grid';
+
+    const firstDow = new Date(year, month - 1, 1).getDay();
+    const daysInMonth = new Date(year, month, 0).getDate();
+
+    for (let e = 0; e < firstDow; e++) {
+      const empty = document.createElement('div');
+      empty.className = 'day-cell empty';
+      grid.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dow = new Date(year, month - 1, d).getDay();
+      const key = `${year}-${month}-${d}`;
+      const events = EVENTS_MAP[key] || [];
+
+      const cell = document.createElement('div');
+      let classes = ['day-cell'];
+      if (dow === 0) classes.push('sunday');
+      if (dow === 6) classes.push('saturday');
+
+      if (events.length > 0) {
+        const types = [...new Set(events.map(e => e.type))];
+        if (types.includes('holiday')) {
+          classes.push('type-holiday');
+        } else if (types.includes('cuti')) {
+          classes.push('type-cuti');
+        } else if (types.length > 1) {
+          classes.push('type-multi');
+        } else if (types[0] === 'isfest') {
+          classes.push('type-isfest');
+        } else if (types[0] === 'social') {
+          classes.push('type-social');
+        } else if (types[0] === 'perprod') {
+          classes.push('type-perprod');
+        } else if (types[0] === 'divaka') {
+          classes.push('type-divaka');
+        } else if (types[0] === 'hukesma') {
+          classes.push('type-hukesma');
+        } else if (types[0] === 'nonaka') {
+          classes.push('type-nonaka');
+        } else if (types[0] === 'akademik') {
+          classes.push('type-akademik');
+        }
+      }
+
+      cell.className = classes.join(' ');
+
+      // Dots
+      let dotsHtml = '';
+      if (events.length > 0) {
+        const uniqueTypes = [...new Set(events.map(e => e.type))].slice(0, 3);
+        const dots = uniqueTypes.map(t => 
+          `<span class="event-dot" style="background: ${getDotColor(t)}"></span>`
+        ).join('');
+        dotsHtml = `<div class="dots-container">${dots}</div>`;
+      }
+
+      cell.innerHTML = `<span class="day-num">${d}</span>${dotsHtml}`;
+
+      if (events.length > 0) {
+        cell.addEventListener('mouseenter', (ev) => showTooltip(ev, d, MONTH_NAMES[month-1], year, events));
+        cell.addEventListener('mousemove', moveTooltip);
+        cell.addEventListener('mouseleave', hideTooltip);
+      }
+
+      grid.appendChild(cell);
+    }
+
+    card.appendChild(grid);
+
+    /* TIMELINE ALUR KEGIATAN DI BAWAH KARTU */
+    const timelineSection = document.createElement('div');
+    timelineSection.className = 'month-timeline';
+    timelineSection.innerHTML = `<div class="timeline-title">📍 Timeline Alur ${MONTH_NAMES[month - 1]}:</div>`;
+
+    const items = MONTHLY_TIMELINE[month] || [];
+    if (items.length === 0) {
+      timelineSection.innerHTML += `<div class="timeline-empty">Belum ada agenda besar bulan ini</div>`;
+    } else {
+      const track = document.createElement('div');
+      track.className = 'timeline-track';
+      
+      items.forEach(it => {
+        const node = document.createElement('div');
+        node.className = `timeline-node tag-${it.tag}`;
+        node.setAttribute('data-category', it.cat);
+        node.innerHTML = `
+          <div class="timeline-node-header">
+            <span class="timeline-badge tag-${it.tag}">${it.date}</span>
+          </div>
+          <div class="timeline-node-text">${it.text}</div>
+        `;
+        track.appendChild(node);
+      });
+      timelineSection.appendChild(track);
+    }
+
+    card.appendChild(timelineSection);
+    return card;
+  }
+
+  /* ===================== FILTER HANDLING ===================== */
+  function filterCategory(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const nodes = document.querySelectorAll('.timeline-node');
+    nodes.forEach(node => {
+      const nodeCat = node.getAttribute('data-category');
+      if (cat === 'all') {
+        node.style.display = 'flex';
+      } else if (cat === 'proker' && nodeCat === 'proker') {
+        node.style.display = 'flex';
+      } else if (cat === 'divisi' && nodeCat === 'divisi') {
+        node.style.display = 'flex';
+      } else if (cat === 'holiday' && (nodeCat === 'holiday' || nodeCat === 'akademik')) {
+        node.style.display = 'flex';
+      } else {
+        node.style.display = 'none';
+      }
+    });
+  }
+
+  /* ===================== MODAL REKAPAN FULL ===================== */
+  const PROKER_MASTER_DATA = [
+    {
+      title: "ISFEST 2027 (Information System Festival)",
+      color: "#d97706",
+      events: [
+        { date: "10 – 24 Feb", desc: "Open Rekrutmen Panitia" },
+        { date: "25 – 26 Feb", desc: "Extend Open Rekrutmen Panitia" },
+        { date: "1 – 3 Mar", desc: "Interview Panitia" },
+        { date: "5 Mar", desc: "Announcement Kelulusan Panitia" },
+        { date: "17 Mar", desc: "Pleno 1" },
+        { date: "28 Apr", desc: "Pleno 2" },
+        { date: "11 Mei", desc: "Bonding Panitia" },
+        { date: "13 – 14 Mei", desc: "Foto Divisi" },
+        { date: "21 Jun – 31 Ags", desc: "Registrasi Lomba Akademik (UI/UX, Data Competition)" },
+        { date: "14 Jul – 31 Ags", desc: "Registrasi Lomba Non-Akademik (MLBB, Valorant)" },
+        { date: "31 Agt", desc: "Pleno 3 & Penutupan Registrasi Lomba" },
+        { date: "1 Sep", desc: "Technical Meeting Lomba Akademik & Mulai Pengerjaan" },
+        { date: "6 Sep", desc: "Technical Meeting Non-Akademik" },
+        { date: "9 – 11 Sep", desc: "Penyisihan MLBB" },
+        { date: "17 – 18 Sep", desc: "Final MLBB" },
+        { date: "22 – 24 Sep", desc: "Penyisihan Valorant" },
+        { date: "25 Sep", desc: "Final Valorant & Deadline Pengerjaan Karya Akademik" },
+        { date: "29 Sep", desc: "Announcement Finalis Akademik" },
+        { date: "1 Okt", desc: "Final Akademik" },
+        { date: "6 Okt", desc: "Seminar Nasional ISFEST" },
+        { date: "2 Nov", desc: "Pembubaran Panitia ISFEST" }
+      ]
+    },
+    {
+      title: "Perkenalan Prodi (Orientasi Mahasiswa Baru SI)",
+      color: "#7c3aed",
+      events: [
+        { date: "19 – 30 Apr", desc: "Open Rekrutmen Panitia" },
+        { date: "4 – 5 Mei", desc: "Interview Panitia" },
+        { date: "13 Mei", desc: "Pleno 1" },
+        { date: "3, 10, 24, 31 Jul", desc: "Pembekalan PIC (Setiap Sabtu)" },
+        { date: "17 Jul", desc: "Forum Foto PIC" },
+        { date: "28 Jul", desc: "Rapat Koordinasi: Acara x PIC x Perkap x Keamanan" },
+        { date: "4 Agt", desc: "Pleno 2" },
+        { date: "10 – 11 Agt", desc: "Simulasi Acara" },
+        { date: "16 Agt", desc: "Gladi Kotor" },
+        { date: "18 Agt", desc: "Gladi Bersih" },
+        { date: "14 Sep", desc: "Pembubaran Panitia Perkenalan Prodi" }
+      ]
+    },
+    {
+      title: "Social IS ME (Aksi Kepedulian Sosial & Lingkungan)",
+      color: "#e11d48",
+      events: [
+        { date: "6 – 17 Sep", desc: "Open Rekrutmen Panitia" },
+        { date: "22 – 23 Sep", desc: "Interview Anggota Panitia" },
+        { date: "4 Okt", desc: "Pleno 1" },
+        { date: "3 Nov", desc: "Pleno 2" },
+        { date: "3 – 12 Nov", desc: "Open Rekrutmen Volunteer" },
+        { date: "15 Nov", desc: "Pengumuman Kelulusan Volunteer" },
+        { date: "18 Nov", desc: "Pembekalan Volunteer" },
+        { date: "25 Nov", desc: "Pelaksanaan Donor Darah" },
+        { date: "26 Nov", desc: "Penyuluhan Masyarakat" },
+        { date: "6 Des", desc: "Pembubaran Panitia Social IS ME" }
+      ]
+    },
+    {
+      title: "Divisi Akademik HIMSI",
+      color: "#059669",
+      events: [
+        { date: "16, 23, 30 Mar", desc: "Bimbel HIMSI (Persiapan UTS Semester Genap)" },
+        { date: "23 Apr", desc: "Company Visit (Sesi 1)" },
+        { date: "15 Mei", desc: "Studi Banding / Stuban (Sesi 1)" },
+        { date: "9 Okt", desc: "Studi Banding / Stuban (Sesi 2)" },
+        { date: "5 Nov", desc: "Company Visit (Sesi 2)" }
+      ]
+    },
+    {
+      title: "Divisi Hukesma (Hubungan Kesejahteraan Mahasiswa)",
+      color: "#2563eb",
+      events: [
+        { date: "9 Sep", desc: "HIMSI Anniversary Celebration 🎉" },
+        { date: "Rabu (2 Pekan 1x)", desc: "Rabu Lagu (3, 17, 31 Mar | 28 Apr | 12, 26 Mei | 1, 15, 29 Sep | 13, 27 Okt | 10, 24 Nov) - Bebas UTS/UAS" },
+        { date: "Akhir Bulan", desc: "Form Aspirasi Mahasiswa (30 Mar*, 30 Apr, 31 Mei, 30 Sep, 31 Okt, 30 Nov) *Dimajukan ke Selasa agar tdk tabrakan Rabu Lagu" }
+      ]
+    },
+    {
+      title: "Divisi Non-Akademik (Siberian Week)",
+      color: "#ea580c",
+      events: [
+        { date: "Sabtu (2 Pekan 1x)", desc: "Siberian Week 12 Sesi Berputar Rata (Bebas Tanggal Merah 1 Mei, UTS 10 & 17 Apr, dan Stuban 15 Mei & 9 Okt):" },
+        { date: "⚽ Futsal (4x)", desc: "6 Maret, 8 Mei, 18 September, 30 Oktober" },
+        { date: "🏀 Basket (4x)", desc: "20 Maret, 22 Mei, 2 Oktober, 13 November" },
+        { date: "🏸 Badminton (4x)", desc: "3 April, 4 September, 16 Oktober, 27 November" }
+      ]
+    }
+  ];
+
+  function openModal() {
+    const modalContent = document.getElementById('modalContent');
+    modalContent.innerHTML = '';
+
+    PROKER_MASTER_DATA.forEach(group => {
+      const card = document.createElement('div');
+      card.className = 'rekap-proker-card';
+      
+      let rows = '';
+      group.events.forEach(ev => {
+        rows += `
+          <div class="rekap-item">
+            <span class="rekap-date">📅 ${ev.date}</span>
+            <span class="rekap-desc">${ev.desc}</span>
+          </div>
+        `;
+      });
+
+      card.innerHTML = `
+        <div class="rekap-proker-header" style="background: ${group.color}">
+          <span>📌 ${group.title}</span>
+        </div>
+        <div class="rekap-list">
+          ${rows}
+        </div>
+      `;
+      modalContent.appendChild(card);
+    });
+
+    document.getElementById('rekapModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('rekapModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  function closeModalOnOverlay(e) {
+    if (e.target.id === 'rekapModal') {
+      closeModal();
+    }
+  }
+
+  /* Tooltip handler */
+  const tooltip = document.getElementById('tooltipPopup');
+
+  function showTooltip(e, d, monthName, year, events) {
+    let html = `<div style="font-weight: 800; margin-bottom: 6px; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 4px;">${d} ${monthName} ${year}</div>`;
+    events.forEach(ev => {
+      let color = getDotColor(ev.type);
+      html += `<div style="margin-top: 4px; display: flex; align-items: center; gap: 7px;">
+        <span style="width: 7.5px; height: 7.5px; border-radius: 50%; background: ${color}; flex-shrink: 0;"></span>
+        <span>${ev.label}</span>
+      </div>`;
+    });
+    tooltip.innerHTML = html;
+    tooltip.style.display = 'block';
+    moveTooltip(e);
+  }
+
+  function moveTooltip(e) {
+    const x = e.pageX + 14;
+    const y = e.pageY + 14;
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top = `${y}px`;
+  }
+
+  function hideTooltip() {
+    tooltip.style.display = 'none';
+  }
+
+  /* Render 12 bulan */
+  const grid = document.getElementById('calendarGrid');
+  for (let m = 1; m <= 12; m++) {
+    grid.appendChild(buildMonth(2027, m));
+  }
+</script>
+</body>
+</html>
